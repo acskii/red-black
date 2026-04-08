@@ -19,14 +19,25 @@ class RedBlackTree:
         self.nil = self.TreeNode(value=None, color='b')
         self.root = self.nil
         self._size = 0
-        self._black_height = 0
-        self._height = 0
     
     def search(self, word: str) -> bool:
         # Use balanced binary search method to find word node
-        return False
+        # takes O(log n) time
+        x = self.root # start at root
+        while x != self.nil: # while not at nil
+            if x.value == word: # if word is found
+                return True
+            elif x.value < word: # if word is greater than current node
+                x = x.right # go right
+            else:
+                x = x.left # go left
+        return False # word not found
     
     def insert(self, word: str) -> None:
+        # Insert word into tree
+        # does not allow duplicates
+        # takes O(log n) time
+
         # Create tree node for word
         newNode = self.TreeNode(value=word)
         newNode.left = self.nil
@@ -40,8 +51,13 @@ class RedBlackTree:
             y = x
             if newNode.value < x.value:
                 x = x.left
-            else:
+            elif newNode.value > x.value:
                 x = x.right
+            else:
+                # word already exists
+                # add more safety to the function and does not allow duplicates
+                print(f"Word '{word}' already exists in the tree.")
+                return
             # Set parent and insert node
         newNode.parent = y
         if y == self.nil:
@@ -58,10 +74,20 @@ class RedBlackTree:
         self.__inc_tree_size()
             
     def tree_height(self):
-        return self._height
-    
+        # Calculate height of tree
+        # takes O(n) time
+        return self.__get_node_height(self.root)
+
     def black_height(self):
-        return self._black_height
+        # Calculate black height of tree
+        # takes O(log n) time
+        x = self.root # starts at root
+        black_height = 0
+        while x != self.nil:
+            if x.color == 'b':
+                black_height += 1
+            x = x.left # goes down left side of tree until nil
+        return black_height
     
     def tree_size(self):
         return self._size
@@ -127,6 +153,12 @@ class RedBlackTree:
                     z.parent.parent.color = 'r'
                     self.__left_rotate(z.parent.parent)
         self.root.color = 'b'
+    
+    def __get_node_height(self, x: TreeNode):
+        # Recursive helper function to calculate height of node
+        if x == self.nil:
+            return 0
+        return 1 + max(self.__get_node_height(x.left), self.__get_node_height(x.right))
         
     def __inc_tree_size(self):
         self._size += 1
