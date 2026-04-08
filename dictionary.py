@@ -12,21 +12,42 @@ DICTIONARY_FILE = "./dictionary.txt"
 def load_dictionary() -> list[str]:
     words = []
     
-    # Include reading functionality here
+    try:
+        with open(DICTIONARY_FILE, 'r') as dict:
+            for line in dict:
+                words.append(line.strip())
+    except (OSError):
+        print("[DICTIONARY]: No dictionary file found")
+        return []
     
     return words
-
 
 # Append dictionary text content with a word
 def append_onto_dictionary(word: str) -> bool:
     # Append the given word to the end of the text content
-    # Follow the dictionary text file format
-    # Return False if any error or failure occurs during overwrite
+
+    try:
+        with open(DICTIONARY_FILE, 'a') as dict:
+            dict.write(word.strip() + "\n")
+    except (OSError):
+        print("[DICTIONARY]: Couldn't append word onto dictionary")
+        return False
+    
     return True
 
 # Overwrite dictionary text content with provided list
 def overwrite_dictionary(words: list[str]) -> bool:
     # Replace all file content here with the words in the given list
-    # Follow the dictionary text file format
-    # Return False if any error or failure occurs during overwrite
+
+    try:
+        with open(DICTIONARY_FILE, 'w') as dict:
+            content = []
+            for word in words:
+                content.append(word + "\n")
+                
+            dict.write("".join(content))
+    except (OSError):
+        print("[DICTIONARY]: Couldn't overwrite dictionary")
+        return False
+    
     return True
