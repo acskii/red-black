@@ -17,9 +17,18 @@
 #       Group: 3
 #       Section: 1
 
+from dictionary import load_dictionary
+from red_black_tree import RedBlackTree
 
 def main():
-    return 
+    # Loading current words
+    words = load_dictionary()
+    tree = RedBlackTree()
+    
+    # Initialising tree
+    for word in words:
+        tree.insert(word)
+        
 
 if __name__ == "__main__":
     main()
