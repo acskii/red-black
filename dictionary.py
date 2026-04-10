@@ -28,7 +28,7 @@ def append_onto_dictionary(word: str) -> bool:
 
     try:
         with open(DICTIONARY_FILE, 'a') as dict:
-            dict.write(word.strip() + "\n")
+            dict.write("\n" + word.strip())
     except (OSError):
         print("[DICTIONARY]: Couldn't append word onto dictionary")
         return False

@@ -8,6 +8,8 @@
 #   - Print all red-black tree object properties to show to user
 
 from red_black_tree import RedBlackTree
+from dictionary import append_onto_dictionary
+
 
 CHOICE_MESSAGE = """
     Do you want to:
@@ -24,7 +26,8 @@ def start_interface(tree: RedBlackTree):
         if (choice == 1):
             # Insert word
             word = input("Enter a word: ")
-            tree.insert(word)
+            added = tree.insert(word)
+            if added: append_onto_dictionary(word)
             print("Black Height: " + str(tree.black_height()))
             print("Tree Height: " + str(tree.tree_height()))
             print("Tree Size: " + str(tree.tree_size()))

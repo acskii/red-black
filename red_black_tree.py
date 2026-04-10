@@ -33,7 +33,7 @@ class RedBlackTree:
                 x = x.left # go left
         return False # word not found
     
-    def insert(self, word: str) -> None:
+    def insert(self, word: str) -> bool:
         # Insert word into tree
         # does not allow duplicates
         # takes O(log n) time
@@ -57,7 +57,7 @@ class RedBlackTree:
                 # word already exists
                 # add more safety to the function and does not allow duplicates
                 print(f"Word '{word}' already exists in the tree.")
-                return
+                return False
             # Set parent and insert node
         newNode.parent = y
         if y == self.nil:
@@ -72,6 +72,8 @@ class RedBlackTree:
         
         # Update properties
         self.__inc_tree_size()
+        
+        return True
             
     def tree_height(self):
         # Calculate height of tree
