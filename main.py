@@ -19,6 +19,7 @@
 
 from dictionary import load_dictionary
 from red_black_tree import RedBlackTree
+from interface import start_interface
 
 def main():
     # Loading current words
@@ -28,7 +29,9 @@ def main():
     # Initialising tree
     for word in words:
         tree.insert(word)
-        
+    
+    # Start user interface
+    start_interface(tree)
 
 if __name__ == "__main__":
     main()
